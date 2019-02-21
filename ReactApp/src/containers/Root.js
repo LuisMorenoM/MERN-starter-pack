@@ -6,7 +6,9 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Link } from 'react-router-dom';
 
 // HOC
-import requireAuth from '../hoc/requiresAuth'; //isLogged
+import requiresAuth from '../hoc/requiresAuth'; //isLogged
+import notLogged from '../hoc/notLogged'; //notLogged
+import requiresOwn from '../hoc/requiresOwn'; //isLogged && Own
 
 // Containers
 import Header from './Header'
@@ -25,14 +27,14 @@ const Root = ({history}) => (
 			</div>
 			<Switch>
 				<Route exact path="/" component={App} />
-				<Route path="/login" component={Login} />
-				<Route path="/signup" component={Signup} />
+				<Route path="/login" component={notLogged(Login)} />
+				<Route path="/signup" component={notLogged(Signup)} />
 				<Route path="/users" 
 					render={ ({ match }) => (
 						<div>
 							<Route exact path={`${match.url}/`} component={Users} />
 							<Route exact path={`${match.url}/:userName`} component={User} />
-							<Route exact path={`${match.url}/edit/:userName`} component={requireAuth(EditUser)} />
+							<Route exact path={`${match.url}/edit/:userName`} component={requiresOwn(EditUser)} />
 						</div>
 					)}
 				/>

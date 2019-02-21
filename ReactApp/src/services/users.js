@@ -17,10 +17,10 @@ function getAllUsers() {
 	    	.then(response => response.json().then(body => {
 	    		if (!response.ok) {
 		          // If request was failed, dispatching FAILURE action.
-		          return({status:false, msg: body.error, value: "Error getting all users"})
+		          return({status: false, value: body.message})
 		        } else {
 		          // When everything is ok, dispatching SUCCESS action.
-		          return({status:true, value: body})
+		          return({status: true, value: body})
 		        }
 	    	}))
 	// })
@@ -43,9 +43,9 @@ function newUser(user) {
 		  	.then(({ response, body }) => {
 		        if (!response.ok) {
 		        	//handle errors
-					reject({status:false, msg: body.error, value: "Register wrong"})
+					reject({status: false, value: body.message})
 		        } else {
-					resolve({status:true, value: body})
+					resolve({status: true, value: body})
 		        }
 		    });
 
@@ -65,11 +65,11 @@ function getUser(user) {
 	return fetch(`http://127.0.0.1:8000/api/users/${user}`, requestOptions)
     	.then(response => response.json().then(body => {
     		if (!response.ok) {
-	          // If request was failed, dispatching FAILURE action.
-	          return({status:false, msg: body.error, value: "Error getting the user"})
+	          	// If request was failed, dispatching FAILURE action.
+	          	return({status: false, value: body.message})
 	        } else {
-	          // When everything is ok, dispatching SUCCESS action.
-	          return({status:true, value: body})
+	          	// When everything is ok, dispatching SUCCESS action.
+	          	return({status: true, value: body})
 	        }
     	}))
 }
@@ -87,14 +87,39 @@ function modUser(user, token) {
 		body: 		body
 	}
 
-	return fetch(`http://127.0.0.1:8000/api/users/${user}`, requestOptions)
+	return fetch(`http://127.0.0.1:8000/api/users/${user.name}`, requestOptions)
     	.then(response => response.json().then(body => {
     		if (!response.ok) {
-	          // If request was failed, dispatching FAILURE action.
-	          return({status:false, msg: body.error, value: "Error updating the info"})
+				// If request was failed, dispatching FAILURE action.
+	        	return({status: false, value: body.message})
 	        } else {
-	          // When everything is ok, dispatching SUCCESS action.
-	          return({status:true, value: body})
+	        	// When everything is ok, dispatching SUCCESS action.
+	        	return({status: true, value: body})
+	        }
+    	}))
+}
+
+//Update user info
+function delUser(user, token) {
+
+	let body = JSON.stringify(user)
+	const requestOptions = {
+		method: 	'DELETE',
+		headers: 	{ 
+						'Content-Type': 'application/json',
+						'x-access-token': token
+					},
+		body: 		body
+	}
+
+	return fetch(`http://127.0.0.1:8000/api/users/${user.name}`, requestOptions)
+    	.then(response => response.json().then(body => {
+    		if (!response.ok) {
+				// If request was failed, dispatching FAILURE action.
+	        	return({status: response.ok, value: body.message})
+	        } else {
+	        	// When everything is ok, dispatching SUCCESS action.
+	        	return({status: response.ok, value: body})
 	        }
     	}))
 }
@@ -103,7 +128,8 @@ const usersServices = {
 	newUser,
 	getAllUsers,
 	getUser,
-	modUser
+	modUser,
+	delUser
 }
 
 export default usersServices

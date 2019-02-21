@@ -9,25 +9,22 @@ class EditUser extends Component {
 	constructor(props) {
 		super(props)
 
-		// this.getCurrentUser = this.getCurrentUser.bind(this)
+		this.isReady = null
+
+		this.getCurrentUser = this.getCurrentUser.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
+		this.handleDelete = this.handleDelete.bind(this)
+		this._isReady = this._isReady.bind(this)
 	}
 
-	componentDidMount() {
-		if (!this.props.activeUser || (this.props.activeUser.name !== this.props.match.params.userName)) {
+	componentDidMount(prevProps) {
+		// this.getCurrentUser()
+		// if (!this.props.isFetching && !this.props.activeUser || (this.props.activeUser.name !== this.props.match.params.userName)) {
+		// 	this.getCurrentUser()
+		// }
+		if (!this.props.activeUser && !this.props.isFetching) {
 			this.getCurrentUser()
 		}
-	}
-
-	componentDidUpdate(prevProps) {
-		console.log("did update", prevProps)
-		// if (prevProps.history.location.pathname !== prevProps.location.pathname) this.getCurrentUser()
-	}
-
-
-	shouldComponentUpdate(nextProps, nextState) {
-		console.log("shouldComponentUpdate", nextProps, nextState)
-		return true
 	}
 
 	getCurrentUser() {
@@ -36,7 +33,6 @@ class EditUser extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		console.log(this.props.activeUser, this.props.authUser)
 		let modUser = {
 			name: 			this.props.activeUser.name,
 			description: 	e.target.description.value
@@ -44,43 +40,60 @@ class EditUser extends Component {
 		this.props.modUser(modUser)
 	}
 
+	handleDelete(e) {
+		e.preventDefault()
+		let delUser = {
+			name: this.props.activeUser.name
+		}
+		this.props.delUser(delUser)
+	}
+
+	_isReady () {
+		if (this.props.activeUser) {
+			this.isReady = this.props.activeUser
+			if (this.props.match.params.userName !==  this.props.activeUser.name) {
+				this.isReady = null
+			}
+		}
+	}
+
 	render() {
-		console.log("render")
+		this._isReady()
 		//@TODO: if this.props.match.params.userName !== this.props.activeUser.name render loading
 		return (
 			<div className="">
-				{ this.props.activeUser ?
-					( 
+				{ !this.isReady ? 
+					(
 						<div>
-							{ this.props.match.params.userName === this.props.activeUser.name ?
+							{ !this.props.isFetching ?
 								(
-									<div>
-										<h2>Edit {this.props.activeUser.name}'s Profile</h2>
-										<div>
-											<form onSubmit={this.handleSubmit}>
-												<span>
-													<label htmlFor="description">description</label>
-													<input id="description" type="description" name="description"/>
-												</span>
-												<button type="submit" value="Submit" >Edit</button>
-											</form>
-										</div>
-									</div>
+									<div style={{backgroundColor:'blue'}}>Not Found</div>
 								)
 								:
 								(
 									<div>
-										<h4>Loading User</h4>
+										<h1 style={{backgroundColor:'blue', color:'red'}}>loading</h1>
 									</div>
 								)
 							}
-							
 						</div>
-					)
-				:
+					) 
+					: 
 					(
 						<div>
-							<h4>Loading User</h4>
+							<h2>Edit {this.props.activeUser.name}'s Profile</h2>
+							<div>
+								<form onSubmit={this.handleSubmit}>
+									<span>
+										<label htmlFor="description">description</label>
+										<input id="description" type="description" name="description"/>
+									</span>
+									<button type="submit" value="Submit" >Edit</button>
+								</form>
+							</div>
+							<div>
+								<button onClick={this.handleDelete} value="delUser">Delete</button>
+							</div>
 						</div>
 					)
 				}
@@ -92,6 +105,7 @@ class EditUser extends Component {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		activeUser: 	state.usersReducer.activeUser,
+		isFetching: 	state.usersReducer.isFetching,
 		authUser: 		state.authReducer
 	}
 }
@@ -99,7 +113,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getUser: (param) => dispatch(usersActions.getUser(param)),
-		modUser: (param) => dispatch(usersActions.modUser(param))
+		modUser: (param) => dispatch(usersActions.modUser(param)),
+		delUser: (param) => dispatch(usersActions.delUser(param))
 	}
 }
 

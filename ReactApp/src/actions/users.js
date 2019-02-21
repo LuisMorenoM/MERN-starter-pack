@@ -1,5 +1,6 @@
 import { push, goBack } from 'connected-react-router'
 
+import authConstants from '../constants/auth'
 import usersConstants from '../constants/users'
 import usersServices from '../services/users'
 
@@ -66,7 +67,11 @@ const newUser = user => {
 }
 
 const getUser = user => {
+	
 	return dispatch => {
+		dispatch({
+		  type: usersConstants.REQUEST_USERS
+		})
 		usersServices.getUser(user).then(res => {
 			if (res.status) {
 				dispatch({
@@ -80,12 +85,14 @@ const getUser = user => {
 				})
 			}
 		})
-
 	}
 }
 
 const modUser = user => {
 	return dispatch => {
+		dispatch({
+			type: usersConstants.REQUEST_USERS
+		})
 		let token = JSON.parse(localStorage.getItem('auth')).token
 		//request
 		usersServices.modUser(user, token).then( res => {
@@ -106,11 +113,41 @@ const modUser = user => {
 	}
 }
 
+const delUser = user => {
+	return dispatch => {
+		dispatch({
+			type: usersConstants.REQUEST_USERS
+		})
+		let token = JSON.parse(localStorage.getItem('auth')).token
+		//request
+		usersServices.delUser(user, token).then( res => {
+			if (res.status) {
+				dispatch({
+				  	type: usersConstants.DELETE_USER_SUCCESS,
+				  	value: res.value
+				})
+				dispatch({
+					type: authConstants.LOGOUT_SUCCESS,
+					value: res.value
+				})
+				localStorage.clear() //localStorage.removeItem('auth');
+				push('/')
+			} else {
+				dispatch({
+					type: usersConstants.DELETE_USER_FAILURE,
+					value: res.value
+				})
+			}
+		})
+	}
+}
+
 const usersActions = {
 	getAllUsers,
 	newUser,
 	getUser,
-	modUser
+	modUser,
+	delUser
 }
 
 export default usersActions

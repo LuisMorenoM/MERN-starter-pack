@@ -27,12 +27,12 @@ router.use((req, res, next) => {
 
 router.post('/login', function(req, res) {
 	User.findOne({ $or: [ {email: req.body.name}, {name: req.body.name} ]}, function (err, user) {
-		if (err) return res.status(500).send('Error on the server.');
-		if (!user) return res.status(404).send('No user found.');
+		if (err) return res.status(500).send({message: 'Error on the server.'});
+		if (!user) return res.status(404).send({message: 'User not found.'});
 
     // check if the password is valid
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-    if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+    if (!passwordIsValid) return res.status(401).send({ auth: false, token: null, message: 'Incorrect password' });
 
     // if user is found and password is valid
     // create a token
@@ -57,8 +57,8 @@ router.get('/logout', function(req, res) {
 router.get('/me', verifyToken, function(req, res, next) {
 
 	User.findById(req.userId, { password: 0 }, function (err, user) {
-		if (err) return res.status(500).send("There was a problem finding the user.");
-		if (!user) return res.status(404).send("No user found.");
+		if (err) return res.status(500).send({message: "There was a problem finding the user."});
+		if (!user) return res.status(404).send({message: "User not found."});
 		res.status(200).send(user);
 	});
 

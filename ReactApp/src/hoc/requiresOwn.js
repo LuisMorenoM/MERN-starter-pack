@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { push } from 'connected-react-router';
 
 export default function (ComposedComponent) {  
-	class Authenticate extends Component {
+	class Own extends Component {
 
 		componentDidMount() {
 			this._checkAndRedirect();
@@ -15,8 +15,8 @@ export default function (ComposedComponent) {
 		}
 
 		_checkAndRedirect() {
-			const { isLogged, redirect } = this.props;
-			if (!isLogged) {
+			const { isLogged, authName, redirect } = this.props;
+			if (!isLogged || (authName !== this.props.match.params.userName)) {
 				redirect();
 			}
 		}
@@ -33,7 +33,8 @@ export default function (ComposedComponent) {
 
 	const mapStateToProps = (state, ownProps) => {
 		return {
-			isLogged: state.authReducer.isLogged
+            authName: state.authReducer.name,
+            isLogged: state.authReducer.isLogged
 		}
 	}
 
@@ -43,5 +44,5 @@ export default function (ComposedComponent) {
 		}
 	}
 
-	return withRouter(connect(mapStateToProps, mapDispatchToProps)(Authenticate));
+	return withRouter(connect(mapStateToProps, mapDispatchToProps)(Own));
 }

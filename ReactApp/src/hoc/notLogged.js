@@ -16,7 +16,7 @@ export default function (ComposedComponent) {
 
 		_checkAndRedirect() {
 			const { isLogged, redirect } = this.props;
-			if (!isLogged) {
+			if (isLogged) {
 				redirect();
 			}
 		}

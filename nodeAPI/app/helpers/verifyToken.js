@@ -9,8 +9,9 @@ function verifyToken(req, res, next) {
 
   	// verifies secret and checks exp
   	jwt.verify(token, config.secret, function(err, decoded) {     
-  		if (err) 
+      	if (err) {
   			return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' })   
+      	}
 
     	// if everything is good, save to request for use in other routes
     	let tokenInfo = {
