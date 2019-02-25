@@ -6,28 +6,10 @@ import usersServices from '../services/users'
 
 const getAllUsers = params => {
 	return dispatch => {
-		// const requestOptions = {
-	 //        method: 'GET',
-	 //        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-	 //    };
-
-	 //    fetch('http://127.0.0.1:8000/api/users', requestOptions)
-	 //    	.then(response => response.json().then(body => ({ response, body })))
-	 //      	.then(({ response, body }) => {
-		//         if (!response.ok) {
-		//           // If request was failed, dispatching FAILURE action.
-		//           	dispatch({
-		// 			  type: usersConstants.GET_ALL_FAILURE,
-		// 			  value: body.error
-		// 			})
-		//         } else {
-		//           // When everything is ok, dispatching SUCCESS action.
-		//           	dispatch({
-		// 			  type: usersConstants.GET_ALL_SUCCESS,
-		// 			  value: body
-		// 			})
-		//         }
-		//       });
+		dispatch({
+			type: usersConstants.REQUEST_USERS
+		})
+		//request
 		usersServices.getAllUsers().then(res => {
 			if (res.status) {
 				dispatch({
@@ -72,6 +54,7 @@ const getUser = user => {
 		dispatch({
 		  type: usersConstants.REQUEST_USERS
 		})
+		//request
 		usersServices.getUser(user).then(res => {
 			if (res.status) {
 				dispatch({

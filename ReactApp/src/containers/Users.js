@@ -10,23 +10,53 @@ class Users extends Component {
 	constructor(props) {
 		super(props)
 
+		this.isReady = false
+		this._isReady = this._isReady.bind(this)
 	}
 
 	componentDidMount() {
 		this.props.getAllUsers()
 	}
 
+	_isReady() {
+		this.isReady = (this.props.users.length) ? true : false
+	}
+
 	render() {
+		this._isReady()
+
 		return (
 			<div className="">
 				<h2>Users</h2>		
-				<ul>
-					{this.props.users &&
-						this.props.users.map((user, i) => (
-							<li key={i}><Link to={`/users/${user.name}`}>{user.name}</Link></li>
-						))
-					}
-				</ul>
+				{ !this.isReady ? 
+					(
+						<div>
+							{ !this.props.isFetching ?
+								( 
+									<div>
+										<h1 style={{backgroundColor:'blue', color:'red'}}>not found</h1>
+									</div>
+								)
+								:
+								(
+									<div>
+										<h1 style={{backgroundColor:'blue', color:'red'}}>loading</h1>
+									</div>
+								)
+							}
+						</div>
+					) 
+					:
+					(
+						<ul>
+							{
+								this.props.users.map((user, i) => (
+									<li key={i}><Link to={`/users/${user.name}`}>{user.name}</Link></li>
+								))
+							}
+						</ul>
+					)
+				}
 			</div>
 			);
 	}
@@ -34,7 +64,8 @@ class Users extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		users:    state.usersReducer.items
+		users:    	state.usersReducer.items,
+		isFetching: state.usersReducer.isFetching
 	}
 }
 

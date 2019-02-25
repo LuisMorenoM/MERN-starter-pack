@@ -49,19 +49,21 @@ router.get('/', function (req, res) {
 	User.find({}, {password:0}, function (err, users) {
 		if (err) return res.status(500).send({message: "There was a problem finding the user."});
 		if (!users) return res.status(404).send({message: "No user found."});
-		res.status(200).send(users);
+		// setTimeout(() => {
+			res.status(200).send(users);
+		// }, 2000)
 	});
 });
 
 // GETS A SINGLE USER
 //By NAME
 router.get('/:user', function (req, res) {
-	console.log("get")
 	User.find( {name: req.params.user}, {password:0}, function (err, user) {
-		console.log("ss", err, user[0])
 		if (err) return res.status(500).send({message: "There was a problem finding the user."});
 		if (!user[0]) return res.status(404).send({message: "No user found."});
-		res.status(200).send(user[0]);
+		// setTimeout(() => {
+			res.status(200).send(user[0]);
+		// }, 2000)
 	});
 });
 

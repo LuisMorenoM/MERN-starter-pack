@@ -13,6 +13,7 @@ import requiresOwn from '../hoc/requiresOwn'; //isLogged && Own
 // Containers
 import Header from './Header'
 import App from './App'
+import Page404c from './Page404c'
 import Login from './Login'
 import Signup from './Signup'
 import Users from './Users'
@@ -38,6 +39,7 @@ const Root = ({history}) => (
 						</div>
 					)}
 				/>
+				<Route component={Page404c} />
 			</Switch>
 			<div>
 				footer

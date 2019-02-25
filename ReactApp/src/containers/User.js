@@ -34,7 +34,7 @@ class User extends Component {
 		this.props.getUser(this.props.match.params.userName)
 	}
 
-	_isReady () {
+	_isReady() {
 		if (this.props.activeUser) {
 			this.isReady = this.props.activeUser
 			if (this.props.match.params.userName !==  this.props.activeUser.name) {
