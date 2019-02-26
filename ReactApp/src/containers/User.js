@@ -3,34 +3,76 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
 import usersActions from '../actions/users'
+import Page404 from '../components/Page404'
+
 
 class User extends Component {
 
 	constructor(props) {
 		super(props)
 
-		this.displayEdit = false
+		this.ownProfile = false
+		this.isReady = null
 		this.getCurrentUser = this.getCurrentUser.bind(this)
+		this._isReady = this._isReady.bind(this)
 	}
 
 	componentDidMount() {
 		this.getCurrentUser()
 	}
 
-	componentDidUpdate(prevProps, nextProps, snapshot) {
-		if (prevProps.history.location.pathname !== prevProps.location.pathname) this.getCurrentUser()
+	componentDidUpdate(prevProps) {
+		if (!this.props.isFetching) {
+			if (this.props.activeUser && (this.props.activeUser.name !== this.props.match.params.userName)) {
+				this.getCurrentUser()
+			} else if (!this.props.activeUser && (prevProps.history.location.pathname !== prevProps.location.pathname)) {
+				this.getCurrentUser()
+			}
+		}
+		// if (prevProps.history.location.pathname !== prevProps.location.pathname) {
+		// 	this.getCurrentUser()	
+		// }
 	}
 
 	getCurrentUser() {
 		this.props.getUser(this.props.match.params.userName)
 	}
 
-	render() {
-		if (this.props.match.params.userName === this.props.authUser.name) this.displayEdit = true
+	_isReady() {
+		if (this.props.activeUser) {
+			this.isReady = this.props.activeUser
+			if (this.props.match.params.userName !==  this.props.activeUser.name) {
+				this.isReady = null
+			}
+		}
+	}
 
+	render() {
+		this.ownProfile = (this.props.match.params.userName === this.props.authUser.name) ? true : false
+		this._isReady()
+		
 		return (
 			<div className="">
-				{ this.props.activeUser ?
+				{ !this.isReady ? 
+					(
+						<div>
+							{ !this.props.isFetching ?
+								( 
+									<div>
+										{/* <h1 style={{backgroundColor:'blue', color:'red'}}>not found</h1> */}
+										<Page404 />
+									</div>
+								)
+								:
+								(
+									<div>
+										<h1 style={{backgroundColor:'blue', color:'red'}}>loading</h1>
+									</div>
+								)
+							}
+						</div>
+					) 
+					: 
 					(
 						<div>
 							<h2>{this.props.activeUser.name}'s Profile</h2>
@@ -42,20 +84,13 @@ class User extends Component {
 									</div>
 								)
 							}
-						</div>
-					)
-				:
-					(
-						<div>
-							<h4>User not found</h4>
-						</div>
-					)
-				}
-				{ this.props.authUser.isLogged && this.displayEdit &&
-					(
-						<div>
-							<button><Link to={`/users/edit/${this.props.match.params.userName}`}>Edit Profile</Link></button>
-							<button><Link to={`/users/edit/${this.props.match.params.userName}`}>Delete Profile</Link></button>
+							{ this.props.authUser.isLogged && this.ownProfile &&
+								(
+									<div>
+										<button><Link to={`/users/edit/${this.props.match.params.userName}`}>Edit Profile</Link></button>
+									</div>
+								)
+							}
 						</div>
 					)
 				}
@@ -67,6 +102,7 @@ class User extends Component {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		activeUser: state.usersReducer.activeUser,
+		isFetching: state.usersReducer.isFetching,
 		authUser: state.authReducer
 	}
 }

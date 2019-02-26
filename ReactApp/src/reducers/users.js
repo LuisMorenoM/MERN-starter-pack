@@ -9,44 +9,58 @@ const init_state = {
 
 const usersReducer = (state = init_state, action) => {
 	switch (action.type) {
+		case usersConstants.REQUEST_USERS : 
+			return {
+				...state,
+				isFetching: true
+			}
 		case usersConstants.GET_ALL_SUCCESS : 
 			return {
 				...state,
-				items: action.value
+				items: 		action.value,
+				isFetching: false
 			}
 		case usersConstants.GET_ALL_FAILURE : 
 			return {
 				...state,
-				items: null,
-				error: action.value
+				items: 		null,
+				isFetching: false,
+				error: 		action.value
 			}
 		case usersConstants.REGISTER_SUCCESS:
 			return {
-				...state
+				...state,
+				isFetching: false
 			}
 		case usersConstants.REGISTER_FAILURE:
 		 	return {
-		 		...state
+				...state,
+				isFetching: false,
+				error: 		action.value
 		 	}
 		case usersConstants.GET_USER_SUCCESS:
 			return {
 				...state,
-				activeUser: action.value
+				activeUser: action.value,
+				isFetching: false
 			}
 		case usersConstants.GET_USER_FAILURE:
 			return {
 				...state,
 				activeUser: null,
-				error: action.value
+				error: 		action.value,
+				isFetching: false
 			}
 		case usersConstants.UPDATE_USER_SUCCESS:
 			return {
-				...state
+				...state,
+				isFetching: false
 			}
 		case usersConstants.UPDATE_USER_FAILURE:
 			return {
 				...state,
-				error: action.value
+				error: 		action.value,
+				isFetching: false
 			}
 		default:
 			return state

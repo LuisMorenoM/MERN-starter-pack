@@ -14,7 +14,7 @@ function login(credentials) {
 	  	.then(({ response, body }) => {
 	        if (!response.ok) {
 	        	//handle errors
-				return({status:false, msg: body.error, value: "Login failed"})
+				return({status:false, value: body.message})
 	        } else {
 				return({status:true, value: body})
 	        }
@@ -32,7 +32,7 @@ function logout() {
     	.then(response => response.json().then(body => {
     		if (!response.ok) {
 	          // If request was failed, dispatching FAILURE action.
-	          return({status:false, msg: body.error, value: "Error"})
+	          return({status:false, value: body.message})
 	        } else {
 	          // When everything is ok, dispatching SUCCESS action.
 	          return({status:true, value: body})
