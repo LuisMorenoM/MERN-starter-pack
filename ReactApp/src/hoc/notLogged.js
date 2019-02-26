@@ -25,7 +25,7 @@ export default function (ComposedComponent) {
 			//@TODO: maybe handle error here?
 			return (
 				<div>
-					{ this.props.isLogged ? <ComposedComponent {...this.props} /> : null }
+					{ !this.props.isLogged ? <ComposedComponent {...this.props} /> : null }
 				</div>
 			);
 		}

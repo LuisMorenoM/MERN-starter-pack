@@ -17,15 +17,15 @@ const usersReducer = (state = init_state, action) => {
 		case usersConstants.GET_ALL_SUCCESS : 
 			return {
 				...state,
-				items: action.value,
+				items: 		action.value,
 				isFetching: false
 			}
 		case usersConstants.GET_ALL_FAILURE : 
 			return {
 				...state,
-				items: null,
+				items: 		null,
 				isFetching: false,
-				error: action.value
+				error: 		action.value
 			}
 		case usersConstants.REGISTER_SUCCESS:
 			return {
@@ -34,8 +34,9 @@ const usersReducer = (state = init_state, action) => {
 			}
 		case usersConstants.REGISTER_FAILURE:
 		 	return {
-				 ...state,
-				 isFetching: false
+				...state,
+				isFetching: false,
+				error: 		action.value
 		 	}
 		case usersConstants.GET_USER_SUCCESS:
 			return {
@@ -47,7 +48,7 @@ const usersReducer = (state = init_state, action) => {
 			return {
 				...state,
 				activeUser: null,
-				error: action.value,
+				error: 		action.value,
 				isFetching: false
 			}
 		case usersConstants.UPDATE_USER_SUCCESS:
@@ -58,7 +59,7 @@ const usersReducer = (state = init_state, action) => {
 		case usersConstants.UPDATE_USER_FAILURE:
 			return {
 				...state,
-				error: action.value,
+				error: 		action.value,
 				isFetching: false
 			}
 		default:

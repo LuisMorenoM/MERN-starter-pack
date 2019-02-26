@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
 import usersActions from '../actions/users'
+import Page404 from '../components/Page404'
+
 
 class User extends Component {
 
@@ -22,6 +24,8 @@ class User extends Component {
 	componentDidUpdate(prevProps) {
 		if (!this.props.isFetching) {
 			if (this.props.activeUser && (this.props.activeUser.name !== this.props.match.params.userName)) {
+				this.getCurrentUser()
+			} else if (!this.props.activeUser && (prevProps.history.location.pathname !== prevProps.location.pathname)) {
 				this.getCurrentUser()
 			}
 		}
@@ -55,7 +59,8 @@ class User extends Component {
 							{ !this.props.isFetching ?
 								( 
 									<div>
-										<h1 style={{backgroundColor:'blue', color:'red'}}>not found</h1>
+										{/* <h1 style={{backgroundColor:'blue', color:'red'}}>not found</h1> */}
+										<Page404 />
 									</div>
 								)
 								:

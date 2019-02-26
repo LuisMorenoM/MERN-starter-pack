@@ -13,7 +13,8 @@ if (localStorage.getItem('auth')) {
 const init_state = {
 	name: 		preUser.name 		|| null,
 	email: 		preUser.email 		|| null,
-	isLogged: 	preUser.isLogged 	|| false
+	isLogged: 	preUser.isLogged 	|| false,
+	error:		null
 }
 
 const authReducer = (state = init_state, action) => {
@@ -30,7 +31,8 @@ const authReducer = (state = init_state, action) => {
 				...state,
 				name: 		null,
 				email: 		null,
-				isLogged: 	false
+				isLogged: 	false,
+				error: 		action.value
 			}
 		case authConstants.LOGOUT_SUCCESS:
 			return {
@@ -44,7 +46,8 @@ const authReducer = (state = init_state, action) => {
 				...state,
 				name: 		null,
 				email: 		null,
-				isLogged: 	false
+				isLogged: 	false,
+				error: 		action.value
 			}
 		default:
 			return state
