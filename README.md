@@ -4,6 +4,8 @@ Just a MERN starter pack.
 
 You can use this MERN starter pack to fast development side projects with all the base stuff already done. 
 
+If you find a bug or something is wrong... please create an issue or contact me! All help and contribution are wellcome.
+
 ## Backend API
 [Directory](https://github.com/LuisMorenoM/MERN-starter-pack/tree/master/nodeAPI)
 
