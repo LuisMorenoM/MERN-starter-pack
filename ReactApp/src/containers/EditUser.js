@@ -35,6 +35,7 @@ class EditUser extends Component {
 		e.preventDefault();
 		let modUser = {
 			name: 			this.props.activeUser.name,
+			id: 			this.props.activeUser._id,
 			description: 	e.target.description.value
 		}
 		this.props.modUser(modUser)
@@ -43,7 +44,8 @@ class EditUser extends Component {
 	handleDelete(e) {
 		e.preventDefault()
 		let delUser = {
-			name: this.props.activeUser.name
+			name: 	this.props.activeUser.name,
+			id: 	this.props.activeUser._id
 		}
 		this.props.delUser(delUser)
 	}

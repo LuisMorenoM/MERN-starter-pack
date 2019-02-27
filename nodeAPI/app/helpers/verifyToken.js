@@ -2,10 +2,10 @@ let jwt = require('jsonwebtoken') // used to create, sign, and verify tokens
 let config = require(__root + 'config/secret') // get our config file
 
 function verifyToken(req, res, next) {
-  // check header or url parameters or post parameters for token
-  let token = req.headers['x-access-token']
-  if (!token) 
-    return res.status(403).send({ auth: false, message: 'No token provided.' })
+  	// check header or url parameters or post parameters for token
+  	let token = req.headers['x-access-token']
+  	if (!token) 
+    	return res.status(403).send({ auth: false, message: 'No token provided.' })
 
   	// verifies secret and checks exp
   	jwt.verify(token, config.secret, function(err, decoded) {     

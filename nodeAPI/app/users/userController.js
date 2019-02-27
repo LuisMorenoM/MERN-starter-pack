@@ -78,7 +78,7 @@ router.get('/:user', function (req, res) {
 
 // DELETES A USER
 router.delete('/:user?', [verifyToken, modUser], function (req, res) {
-	User.findOneAndDelete({ _id: req.tokenInfo.id }, { fields: { password: 0 } }, function (err, user) {
+	User.findOneAndDelete({ _id: req.body.id }, { fields: { password: 0 } }, function (err, user) {
 		if (err) return res.status(500).send({message: "There was a problem deleting the user."});
 		res.status(200).send({ auth: false, token: null });
 	});
@@ -88,7 +88,7 @@ router.delete('/:user?', [verifyToken, modUser], function (req, res) {
 // Added verifyToken middleware to make sure only an authenticated user can put to this route, and get de ID
 // modUser middleware to validate the rol and the permisions.
 router.put('/:user?', [verifyToken, modUser], function (req, res) {
-	User.findOneAndUpdate({ _id: req.tokenInfo.id }, req.body, { fields: { password: 0 }, new: true }, function (err, user) {
+	User.findOneAndUpdate({ _id: req.body.id }, req.body, { fields: { password: 0 }, new: true }, function (err, user) {
 		if (err) return res.status(500).send({message: "There was a problem updating the user."});
 		res.status(200).send(user);
 	});

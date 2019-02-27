@@ -18,7 +18,7 @@ If you find a bug or something is wrong... please create an issue or contact me!
 ### Functionality
 Basic CURD API with JWT implemented.
 - CRUD
-- JWT
+- auth system with JWT
     - jsonwebtoken
 
 ## Frontend Web App
@@ -35,5 +35,5 @@ Basic CURD API with JWT implemented.
 - Router
 - History
 - Async (Thunk)
-- Sessions (LocalStorage)
+- auth + Sessions (LocalStorage)
 
