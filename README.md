@@ -2,7 +2,9 @@
 
 Just a MERN starter pack.
 
-You can use this MERN starter pack to fast development side projects with all the base stuff already done. 
+You can use this MERN starter pack to fast development side projects with all the base stuff already done.
+
+You will find a WebAPP with all Atuh + Session and CRUD functionality ready to use, with router, history and async support.
 
 If you find a bug or something is wrong... please create an issue or contact me! All help and contribution are wellcome.
 
