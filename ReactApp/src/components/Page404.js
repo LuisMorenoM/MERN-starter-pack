@@ -8,7 +8,7 @@ const Page404 = ({hey}) => (
 )
 
 Page404.propTypes = {
-	props: PropTypes.object
+	hey: PropTypes.string
 }
 
 export default Page404
