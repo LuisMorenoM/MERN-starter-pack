@@ -13,7 +13,7 @@ class Page404c extends Component {
 
 	render() {
 		return (
-			<Page404 />
+			<Page404 hey={'from container'}/>
 		);
 	}
 }

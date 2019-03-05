@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
 import usersActions from '../actions/users'
-import Page404 from '../components/Page404'
+import UserError from '../components/UserError'
 
 
 class User extends Component {
@@ -60,7 +60,7 @@ class User extends Component {
 								( 
 									<div>
 										{/* <h1 style={{backgroundColor:'blue', color:'red'}}>not found</h1> */}
-										<Page404 />
+										<UserError />
 									</div>
 								)
 								:

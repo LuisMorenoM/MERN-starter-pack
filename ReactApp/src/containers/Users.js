@@ -34,7 +34,7 @@ class Users extends Component {
 							{ !this.props.isFetching ?
 								( 
 									<div>
-										<h1 style={{backgroundColor:'blue', color:'red'}}>not found</h1>
+										<h1 style={{backgroundColor:'blue', color:'red'}}>Ops! :/</h1>
 									</div>
 								)
 								:
