@@ -48,7 +48,7 @@ export default function (ComposedComponent) {
 
 	const mapDispatchToProps = (dispatch) => {
 		return {
-			redirect: () => dispatch(push('/404')) //@TODO: redirect to /404 page or handle here
+			// redirect: () => dispatch(push('/404')) //@TODO: redirect to /404 page or handle here
 		}
 	}
 

@@ -1,5 +1,3 @@
-import { authHeader } from '../helpers/authHeader'
-
 
 function login(credentials) {
 	let body = JSON.stringify(credentials)

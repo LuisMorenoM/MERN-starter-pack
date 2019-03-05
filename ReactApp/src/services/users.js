@@ -1,4 +1,3 @@
-import { authHeader } from '../helpers/authHeader'
 
 //Get all Users
 function getAllUsers() {

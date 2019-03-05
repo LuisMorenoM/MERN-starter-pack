@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
 import authActions from '../actions/auth'
 
 class Header extends Component {
+
+	static propTypes = {
+		authUser: PropTypes.object,
+		logout: PropTypes.func.isRequired
+	}
 
 	constructor(props) {
 		super(props)

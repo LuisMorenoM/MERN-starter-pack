@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
@@ -7,6 +8,13 @@ import UserError from '../components/UserError'
 
 
 class User extends Component {
+	
+	static propTypes = {
+		activeUser: PropTypes.object,
+		isFetching: PropTypes.bool.isRequired,
+		authUser: PropTypes.object,
+		getUser: PropTypes.func.isRequired
+	}
 
 	constructor(props) {
 		super(props)
@@ -99,7 +107,7 @@ class User extends Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
 		activeUser: state.usersReducer.activeUser,
 		isFetching: state.usersReducer.isFetching,

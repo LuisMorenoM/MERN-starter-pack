@@ -1,4 +1,4 @@
-import { push, goBack } from 'connected-react-router'
+import { goBack } from 'connected-react-router'
 
 import authConstants from '../constants/auth'
 import authServices from '../services/auth'
@@ -14,7 +14,7 @@ const login = credentials => {
 				})
 				//reset localStorage info
 				if (localStorage.getItem('auth')) {
-					const userInfo = JSON.parse(localStorage.getItem('auth'))
+					// const userInfo = JSON.parse(localStorage.getItem('auth'))
 					localStorage.clear() //localStorage.removeItem('auth')
 				}	
 				localStorage.setItem('auth', JSON.stringify(res.value));

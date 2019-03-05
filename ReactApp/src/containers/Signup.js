@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
@@ -6,6 +7,10 @@ import authActions from '../actions/auth'
 import usersActions from '../actions/users'
 
 class Signup extends Component {
+
+	static propTypes = {
+		newUser: PropTypes.func.isRequired
+	}
 
 	constructor(props) {
 		super(props)
@@ -51,8 +56,6 @@ class Signup extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		isLogged: 	state.authReducer.isLogged,
-		user: 		state.authReducer.name
 	}
 }
 

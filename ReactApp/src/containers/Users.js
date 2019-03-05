@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
@@ -6,6 +7,12 @@ import authActions from '../actions/auth'
 import usersActions from '../actions/users'
 
 class Users extends Component {
+
+	static propTypes = {
+		users: PropTypes.array,
+		isFetching: PropTypes.bool.isRequired,
+		getAllUsers: PropTypes.func.isRequired
+	}
 
 	constructor(props) {
 		super(props)

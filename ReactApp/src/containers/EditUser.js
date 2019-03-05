@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
 import usersActions from '../actions/users'
 
 class EditUser extends Component {
+	
+	static propTypes = {
+		activeUser: PropTypes.object,
+		isFetching: PropTypes.bool.isRequired,
+		authUser: PropTypes.object,
+		getUser: PropTypes.func.isRequired,
+		delUser: PropTypes.func.isRequired,
+		modUser: PropTypes.func.isRequired
+	}
 
 	constructor(props) {
 		super(props)

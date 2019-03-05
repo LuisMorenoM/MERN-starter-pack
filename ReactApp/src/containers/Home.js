@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
@@ -7,7 +8,11 @@ import usersActions from '../actions/users'
 
 import './App.css';
 
-class App extends Component {
+class Home extends Component {
+
+	static propTypes = {
+		authUser: PropTypes.object
+	}
 
 	constructor(props) {
 		super(props)
@@ -28,7 +33,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="">
-				<h2>MER/RN Base App</h2>
+				<h2>MER/RN Base Home</h2>
 				<div>
 					<h4>Stack:</h4>
 					<ul>
@@ -53,5 +58,5 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
 

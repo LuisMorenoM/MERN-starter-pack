@@ -12,7 +12,7 @@ import requiresOwn from '../hoc/requiresOwn'; //isLogged && Own
 
 // Containers
 import Header from './Header'
-import App from './App'
+import Home from './Home'
 import Page404c from './Page404c'
 import Login from './Login'
 import Signup from './Signup'
@@ -27,7 +27,7 @@ const Root = ({history}) => (
 				<Header />
 			</div>
 			<Switch>
-				<Route exact path="/" component={App} />
+				<Route exact path="/" component={Home} />
 				<Route exact path="/login" component={notLogged(Login)} />
 				<Route exact path="/signup" component={notLogged(Signup)} />
 				<Route exact path="/users" component={Users} />
