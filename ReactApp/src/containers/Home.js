@@ -6,7 +6,7 @@ import { withRouter, Link } from 'react-router-dom'
 import authActions from '../actions/auth'
 import usersActions from '../actions/users'
 
-import './App.css';
+// import './App.css';
 
 class Home extends Component {
 
