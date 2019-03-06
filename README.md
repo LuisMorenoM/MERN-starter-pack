@@ -24,13 +24,15 @@ Basic CURD API with JWT implemented.
     - jsonwebtoken
 
 ## Frontend Web App
-[Create React App](https://github.com/facebook/create-react-app) based.
-
 [Directory](https://github.com/LuisMorenoM/MERN-starter-pack/tree/master/ReactApp)
+[Create React App](https://github.com/facebook/create-react-app) based.
 
 ### Using 
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
+- [Sass](https://sass-lang.com/)
+    - [node-sass](https://www.npmjs.com/package/node-sass)
+    - [node-sass-chokidar](https://www.npmjs.com/package/node-sass-chokidar)
 
 ### Functionality
 - CRUD
